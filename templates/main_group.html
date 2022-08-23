@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+<style>
+    .close {
+        position: absolute;
+        top: 3px;
+        right: 8px;
+        font-size: 25px;
+        color: rgb(255, 255, 255);
+        transform: rotate(45deg);
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .flexy{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+.hide{
+    display:none;
+}
+
+
+</style>
+
+
+
+<div class="row container-fluid p-0 mx-0">
+    <div class="col-sm-3 m-0 p-0"></div>
+    <div class="col-sm-6 m-0 p-0" style=" background-color:rgba(0, 0, 0, 0.2);">
+      
+    <h6 style="background-color: rgb(144, 204, 219);" class=" text-dark p-2">Group Alteration (Secondary)</h6>
+    
+
+<form id="myForm"  method="post" style="margin-top: 30px;">
+    {% csrf_token %}
+   
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-6 m-0 p-0"> <label for="gname">Name :</label></div>
+                        <div class="col-sm-6 m-0 p-0"><input type="text"    name="gname" class="form-control" placeholder="" required></div> 
+                    </div>
+
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-6 m-0 p-0"> <label for="alia">(Alias) :</label></div>
+                        <div class="col-sm-6 m-0 p-0"><input type="text" id="alia" name="alia"class="form-control" placeholder=""></div> 
+                    </div>
+
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-6 m-0 p-0"> <label for="under">Under :</label></div>
+                        <div class="col-sm-6 m-0 p-0"><input type="text" id="alia" name="alia"class="form-control" value="Primary" placeholder="" readonly></div> 
+                    </div>
+
+                    <div class="row container-fluid  p-2 m-0 " id="nature0" >
+                        <div class="col-sm-6 m-0 p-0"> <label for="meth"> Nature of group  :</label></div>
+                        <div class="col-sm-6 m-0 p-0">
+                            <select id="nature" name="nature" class=" form-control" >
+                                <option value="null">---Select---</option>
+                                <option value="Assets">Assets</option>
+                                <option value="Liabilities">Liabilities</option>
+
+                            </select>
+                        </div> 
+                    </div>
+
+
+
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-6 m-0 p-0"> <label for="subled">Groups behaves like a sub-ledger  :</label></div>
+                        <div class="col-sm-6 m-0 p-0">
+                            <select id="subled" name="subled" class=" form-control">
+                                <option value="Yes">Yes</option>
+                                <option value="No" selected>No</option>
+                            </select>
+                        </div> 
+                    </div>
+
+
+                    
+
+
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-6 m-0 p-0"> <label for="nett">Nett Debit/Credit Balance for Reporting  :</label></div>
+                        <div class="col-sm-6 m-0 p-0">
+                            <select id="nett" name="nee" class=" form-control">
+                                <option value="Yes">Yes</option>
+                                <option value="No" selected>No</option>
+                            </select>
+                        </div> 
+                    </div>
+
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-6 m-0 p-0"> <label for="cal">Used for
+                            calculation  :<p style="font-size: 12px;">(for example:taxes,discounts)<br>
+                                (for sales invoice entries)
+                                entries)</p></label></div>
+                        <div class="col-sm-6 m-0 p-0">
+                            <select id="cal" name="cal" class=" form-control">
+                                <option value="Yes">Yes</option>
+                                <option value="No" selected>No</option>
+                            </select>
+                        </div> 
+                    </div>
+
+                    <div class="row container-fluid  p-2 m-0 hide" id="meth0">
+                        <div class="col-sm-6 m-0 p-0"> <label for="meth"> Method to allocate when used in purchase invoice :</label></div>
+                        <div class="col-sm-6 m-0 p-0">
+                            <select id="meth" name="meth" class=" form-control">
+                                <option value="" selected>Not Applicable</option>
+                                <option value="Appropriate by Qty">Appropriate by Qty</option>
+                                <option value="Appropriate by Value">Appropriate by Value</option>
+                            </select>
+                        </div> 
+                    </div>
+
+
+
+                    <div class="flexy w-100 py-4"><button id="cbtn" type="submit" style="background-color:rgb(144, 204, 219); ;" class="btn text-dark  w-50">SUBMIT</button></div>
+    
+</form>
+
+</div>
+</div>
+<div class="col-sm-3  m-0 p-0"></div>
+
+</div> 
+
+
+
+
+{% endblock body %}

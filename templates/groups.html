@@ -30,47 +30,20 @@ li.sub_group{
 </div>
 <hr>
 
-<ul>
-    <li><a href="{% url 'main_group' %}" id="link" data-id="name">Branch / Divisions</a></li>
-    <li><a href="{% url 'main_group' %}">Capital Account</a>
-        <ul>
-            <li class="sub_group"><a href="branch">Reserves & Surplus</a></li>
-        </ul>
-    </li>
-    
-    <li><a href="{% url 'main_group' %}">Current Assets</a></li>
-    <ul>
-        <li class="sub_group"><a href="branch">Bank Accounts</a></li>
-        <li class="sub_group"><a href="branch">Deposits (Assets)</a></li>
-        <li class="sub_group"><a href="branch">Loans & Advances (Assets)</a></li>
-        <li class="sub_group"><a href="branch">Stock-in-hand</a></li>
-        <li class="sub_group"><a href="branch">Sundry Debtors</a></li>
-    </ul>
-    <li><a href="{% url 'main_group' %}">Current Liabilities</a></li>
-    <ul>
-        <li class="sub_group"><a href="branch">Duties & Taxes</a></li>
-        <li class="sub_group"><a href="branch">Provisions</a></li>
-        <li class="sub_group"><a href="branch">Sundry creditors</a></li>
-    </ul>
-    <li><a href="{% url 'main_group' %}">Direct Expenses</a></li>
-    <li><a href="{% url 'main_group' %}">Direct Incomes</a></li>
-    <li><a href="{% url 'main_group' %}">Fixed Assets</a></li>
-    <li><a href="{% url 'main_group' %}">Indirect Expenses</a></li>
-    <li><a href="{% url 'main_group' %}">Indirect Incomes</a></li>
-    <li><a href="{% url 'main_group' %}">Investments</a></li>
-    <li><a href="{% url 'main_group' %}">Loans(Liability)</a></li>
-    <ul>
-        <li class="sub_group"><a href="branch">Bank Od A/c</a></li>
-        <li class="sub_group"><a href="branch">Secured Loans</a></li>
-        <li class="sub_group"><a href="branch">Unsecured Loans</a></li>
-    </ul>
-    <li><a href="{% url 'main_group' %}">Misc. Expenses(ASSET)</a></li>
-    <li><a href="{% url 'main_group' %}">Purchase Accounts</a></li>
-    <li><a href="{% url 'main_group' %}">Sales Accounts</a></li>
-    <li><a href="{% url 'main_group' %}">Suspense A/C</a></li>
 
-   
-</ul>
+
+    
+{% for group in grp %}
+            <ul>
+                <li><a href="{% url 'm_group' group.id  %}">{{ group.name }}</a></li>
+                {% for i in group.subgroup_set.all %}
+                <ul>
+                    <li><a href="{% url 's_group' i.id %}">{{ i.name }}</a></li>
+                </ul>
+                {% endfor %}
+            </ul>
+{% endfor %}
+ 
 
 
 

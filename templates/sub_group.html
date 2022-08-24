@@ -9,7 +9,7 @@
                 font-family: Arial, Helvetica, sans-serif;
             }
             .container{
-                height: 50vh;
+                height: 35vh;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -91,14 +91,9 @@
                 <div><p>(Alias)</p></div>
                 <input type="text" value="{{ a.alias }}" name="alias" >
                 <div><p>Under</p></div>
-                <input type="text" value="{{ a.under }}" name="under" readonly>
+                <input type="text" value="{{ a.maingroup.name }}" name="under" readonly>
                     </div> 
     
-                    <div><p>Nature Of Group</p></div>
-                    <input type="text" value="{{ a.nature }}" name="nature" readonly>
-
-                    <div><p>Does it affect gross profit </p></div>
-                    <input type="text" value="{{ a.affect_gp }}" name="affect_gp" readonly>
                 
                     <div><p>Group behaves like a sub-ledger</p></div>
                     <select name="grp" id="grp">

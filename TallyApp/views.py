@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 
-from TallyApp.models import MainGroup, SubGroup
+from TallyApp.models import Ledger, MainGroup, SubGroup ,Under
 
 # Create your views here.
 def home(request):
@@ -36,3 +36,13 @@ def grp_alter(request,pk):
         grp.save()
         return redirect('groups')
     return render(request, 'main_group.html',)       
+
+def ledgers(request):
+    grpp=Under.objects.all()
+    context={'grpp':grpp}
+    return render(request, 'ledgers.html',context)      
+
+
+def ledger_alter(request,pk):
+    grpp=Ledger.objects.get(id=pk)
+    return render(request, 'ledger_alter.html',{'a':grpp})  

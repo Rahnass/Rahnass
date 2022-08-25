@@ -13,7 +13,7 @@ li.sub_group{
     font-size: 15px;
 }    
 </style>
-
+<div class="container">
 <div>
     <h5>Chart of Accounts</h5>
 </div>
@@ -27,60 +27,38 @@ li.sub_group{
       <h5 style="font-size: 15px; padding:5px;">For 1-Apr-22</h5>
 
     </div>
-</div>
+</div><hr>
 <div>
-    <h5><u>ASSETS</u></h5>
+
+
+{% for cat in grpp %}
+<ul>
+    <li style="list-style-type: none;"><h4><u>{{ cat.cat_name }}</u></h4></li>
+    {% for i in cat.maingroup_set.all %}
     <ul>
-        <li><a href="" >Current Assets</a></li>
-        <ul>
-            <li><a href="">Bank Accounts</a></li>
-            <li><a href="">Deposits</a></li>
-            <li><a href="">Loans & Advances</a></li>
-            <li><a href="">Stock-in-hand</a></li>
-            <li><a href="">Sundry Debtors</a></li>
-        </ul>
-        <li><a href="">Fixed Assets</a></li>
-        <li><a href="">Investments</a></li>
-        <li><a href="">Misc. Expenses</a></li>
-    </ul><hr>
-    
-    <h5><u>LIABILITIES</u></h5>
-    <ul>
-        <li><a href="">Branch / Divisions</a></li>
-        <li><a href="">Capital Account</a></li>
-        <ul>
-            <li><a href="">Reserves & Surplus </a></li>
-        </ul>
-        <li><a href="">Current Liabilities </a></li>
-        <ul>
-            <li><a href="">Duties & Taxes </a></li>
-            <li><a href="">Provisions </a></li>
-            <li><a href="">Sundry Creditors </a></li>
-        </ul>
-        <li><a href="">Loans (Liability) </a></li>
-        <ul>
-            <li><a href="">Bank OD A/c </a></li>
-            <li><a href="">Secured Loans </a></li>
-            <li><a href="">Unsecured loans </a></li>
-        </ul>
-        <li><a href="">Suspense A/c </a></li>
-        <li><a href="">Profil & Loss A/c </a></li>
-    </ul><hr>
-    <h5><u>EXPENSES</u></h5>
-    <ul>
-        <li><a href="">Direct Expenses </a></li>
-        <li><a href="">Indirect Expenses </a></li>
-        <li><a href="">Purchase Accounts </a></li>
-    </ul><hr>
-    <h5><u>INCOME</u></h5>
-    <ul>
-        <li><a href="">Direct Incomes </a></li>
-        <li><a href="">Indirect Incomes </a></li>
-        <li><a href="">Sales Accounts </a></li>
+        <li><a href="{% url 'm_group' i.id  %}">{{ i.name }}</li>
+            {% for a in i.subgroup_set.all %}
+            <ul>
+                <li><a href="{% url 's_group' a.id %}">{{ a.name }}</a></li>
+                {% for x in a.ledger_set.all %}
+                <ul>
+                    <li><i><a href="{% url 'ledger_alter' x.id %}">{{ x.ledger_name }}</a></i></li>
+                </ul>
+                {% endfor %}
+            </ul>
+            {% endfor %}
     </ul>
+    {% endfor %}
+</ul>
+{% endfor %}
+
+
+
+
+   
 
 <hr></div>
 
 
-
+</div>
 {% endblock %}

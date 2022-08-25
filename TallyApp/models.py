@@ -37,3 +37,14 @@ class SubGroup(models.Model):
     
     def __str__(self):
         return self.name
+
+
+class Ledger(models.Model):
+    subgroup=models.ForeignKey(SubGroup,null=True,on_delete=models.CASCADE)
+    ledger_name = models.CharField(max_length=225,default="Null",blank=True)
+    ledger_alias = models.CharField(max_length=225,default="Null",blank=True)
+    ledger_opening_bal = models.CharField(max_length=225,default="Null",blank=True)
+    ledger_type = models.CharField(max_length=225,default="Null",blank=True)
+
+    def __str__(self):
+        return self.ledger_name

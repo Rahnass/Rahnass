@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from TallyApp.models import MainGroup, SubGroup, Under
+from TallyApp.models import Ledger, MainGroup, SubGroup, Under
 
 
 
@@ -10,3 +10,4 @@ from TallyApp.models import MainGroup, SubGroup, Under
 admin.site.register(Under)
 admin.site.register(MainGroup)
 admin.site.register(SubGroup)
+admin.site.register(Ledger)

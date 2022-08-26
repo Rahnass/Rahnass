@@ -175,26 +175,29 @@
             <div class="form1">
                 <a href="javascript:history.go(-1);" class="close">+</a>
                 <h6 style="background-color:rgb(103, 175, 220) ; color:rgb(0, 0, 0); text-align: center; padding: 9px 0; width:100%;">Ledger Alteration(Seconadary)</h6>
-<form action="" method="post">
-   
+                
+                {% for a in gr %}
+                <form action="" method="post">
+   {% csrf_token %}
     <div class="top">
         <div class="left1">
         <div ><p>Name</p>
-        <input type="text" value="{{ a.ledger_name }}"></div>
+        <input type="text" value="{{ a.ledger_id.ledger_name }}" name="ledger_name"></div>
         <div><p>(Alias)</p>
-        <input type="text"></div>
+        <input type="text" name="ledger_alias" value="{{ a.ledger_id.ledger_alias }}"></div>
         
     </div>
     <div class="right1">
-<h6>Total Opening Balance</h6><hr>
+<h6>Total Opening Balance</h6>
+<input type="number" name="ledger_opening_bal" value="{{ a.ledger_id.ledger_opening_bal }}"><hr>
     </div>
     
 </div>
 <div class="bottom">
     <div class="right2">
         <div><p>Under</p></div>
-        <select name="under" id="target">
-            <option value="">----select---</option>
+        <select name="group_under" id="target">
+            <option value="">{{ a.ledger_id.subgroup.name }}</option>
             <option value="Bank Account">Bank Accouts</option>
             <option value="Bank OD A/c">Bank OCC A/c</option>
             <option value="Bank OD A/c">Bank OD A/c</option>
@@ -231,53 +234,54 @@
             <option value="current_assets">Unsecured Loans</option>   
         </select>
         <!-------------------Hidden Content------------------->
+        
         <div id="Bank Account" class="inv">
             <h5 style="margin-top: 15px;"><u>Bank Account Details</u></h5>
-        <div><p>A/c Holder's Name :</p><input type="text"></div>
-        <div><p>A/c No :</p><input type="number"></div>
-        <div><p>IFS Code:</p><input type="text"></div>
-        <div><p>SWIFT Code :</p><input type="text"></div>
-        <div><p>Bank Name :</p><input type="text"></div>
-        <div><p>Branch :</p><input type="text"></div>
+        <div><p>A/c Holder's Name :</p><input type="text" value="{{ a.holder_name }}" name="holder_name"></div>
+        <div><p>A/c No :</p><input type="number" name="ac_number" value="" ></div>
+        <div><p>IFS Code:</p><input type="text" name="ifsc"></div>
+        <div><p>SWIFT Code :</p><input type="text" name="swift_code"></div>
+        <div><p>Bank Name :</p><input type="text" name="bank_name"></div>
+        <div><p>Branch :</p><input type="text" name="branch_name"></div>
         <h5 style="margin-top: 15px;"><u>Bank Configuration</u></h5>
         <div><p>Set/Alter range for Cheque Books</p></div>
-        <select name="bankyn" id="bankyn">
+        <select name="alter_chk_bks" id="bankyn">
             <option value="No">No</option> 
             <option value="Yes">Yes</option>
              
         </select>
         <div><p>Enable Cheque Printing</p></div>
-        <select name="bankyn" id="bankyn">
+        <select name="enbl_chk_printing" id="bankyn">
             <option value="No">No</option> 
             <option value="Yes">Yes</option>
              
         </select>
-        <div><p>Enable Auto Recouncilation</p><input type="text" value="No" readonly></div>
+        <div><p>Enable Auto Recouncilation</p><input type="text" value="No" name="chqconfg" readonly></div>
        
         </div>
         <div id="Bank OD A/c" class="inv">
-            <div><p>Set OD Limit :</p><input type="text"></div>
+            <div><p>Set OD Limit :</p><input type="text" name="od_limit"></div>
             <h5 style="margin-top: 15px;"><u>Bank Account Details</u></h5>
-        <div><p>A/c Holder's Name :</p><input type="text"></div>
-        <div><p>A/c No :</p><input type="number"></div>
-        <div><p>IFS Code:</p><input type="text"></div>
-        <div><p>SWIFT Code :</p><input type="text"></div>
-        <div><p>Bank Name :</p><input type="text"></div>
-        <div><p>Branch :</p><input type="text"></div>
+        <div><p>A/c Holder's Name :</p><input type="text" name="holder_name" value="{{ a.ledger_bank.holder_name }}"></div>
+        <div><p>A/c No :</p><input type="number" name="ac_number"></div>
+        <div><p>IFS Code:</p><input type="text" name="ifsc"></div>
+        <div><p>SWIFT Code :</p><input type="text" name="swift_code"></div>
+        <div><p>Bank Name :</p><input type="text" name="bank_name"></div>
+        <div><p>Branch :</p><input type="text" name="branch_name"></div>
         <h5 style="margin-top: 15px;"><u>Bank Configuration</u></h5>
         <div><p>Set/Alter range for Cheque Books</p></div>
-        <select name="bankyn" id="bankyn">
+        <select name="alter_chk_bks" id="bankyn" >
             <option value="No">No</option> 
             <option value="Yes">Yes</option>
              
         </select>
         <div><p>Enable Cheque Printing</p></div>
-        <select name="bankyn" id="bankyn">
+        <select name="enbl_chk_printing" id="bankyn">
             <option value="No">No</option> 
             <option value="Yes">Yes</option>
              
         </select>
-        <div><p>Enable Auto Recouncilation</p><input type="text" value="No" readonly></div>
+        <div><p>Enable Auto Recouncilation</p><input type="text" value="No" name="chqconfg" readonly></div>
        
         </div>
 
@@ -285,29 +289,29 @@
             <h5 style="margin-top: 15px;"><u>Statutory Details</u></h5>
      
      
-        <div><p>Include in assessable value calculation for :</p><input type="text"  ></div>
+        <div><p>Include in assessable value calculation for :</p><input type="text" name="assessable_calculation" ></div>
        
         </div>
 
 
         <div id="direct_expenses" class="inv">
-            <div><p>Type of Ledger:</p><input type="text"  ></div>
+            <div><p>Type of Ledger:</p><input type="text" name="ledger_type" ></div>
             <h5 style="margin-top: 15px;"><u>Statutory Details</u></h5>
      
      
-        <div><p>Is GST Applicable :</p><input type="text"  ></div>
-        <div><p>set/alter GST details</p><input type="text"></div>
-        <div><p>Type of Supply</p><input type="text"></div>
+        <div><p>Is GST Applicable :</p><input type="text" name="is_gst_applicable"  ></div>
+        <div><p>set/alter GST details</p><input type="text" name="Set_alter_GST"></div>
+        <div><p>Type of Supply</p><input type="text" name="type_of_supply"></div>
         </div>
 
 
         <div id="duties_taxes" class="inv">
-            <div><p>Type of duty/tax:</p><input type="text"  ></div>
-            <div><p>Percentage of calculation:</p><input type="text"  ></div>
+            <div><p>Type of duty/tax:</p><input type="text" name="type_of_duty_or_tax"  ></div>
+            <div><p>Percentage of calculation:</p><input type="text" name="Persentage_of_calculation" ></div>
             <h5 style="margin-top: 15px;"><u>Statutory Details</u></h5>
      
      
-        <div><p>Include in assessable value calculation for :</p><input type="text"  ></div>
+        <div><p>Include in assessable value calculation for :</p><input type="text" name="assessable_calculation" ></div>
        
         </div>
         <div id="fixed_assets" class="inv">
@@ -315,16 +319,16 @@
             <h5 style="margin-top: 15px;"><u>Statutory Details</u></h5>
      
      
-        <div><p>Is GST Applicable :</p><input type="text"  ></div>
-        <div><p>set/alter GST details</p><input type="text"></div>
-        <div><p>Type of Supply</p><input type="text"></div>
+        <div><p>Is GST Applicable :</p><input type="text" name="is_gst_applicable" ></div>
+        <div><p>set/alter GST details</p><input type="text" name="Set_alter_GST"></div>
+        <div><p>Type of Supply</p><input type="text" name="type_of_supply"></div>
         </div>
 
         <div id="sundry" class="inv">
            
      
      
-        <div><p>Maintain balances bill-by-bill :</p><input type="text"  ></div>
+        <div><p>Maintain balances bill-by-bill :</p><input type="text" name="maintain_balance_bill_by_bill" ></div>
        
         </div>
 
@@ -343,12 +347,12 @@
     <div class="left2">
         <h5>Mailing Address</h5>
         <div><p>Name</p></div>
-        <input type="text">
+        <input type="text" name="name" value="{{ a.name }}">
         <div><p>Address</p></div>
-        <textarea row="5"></textarea>
+        <textarea row="5" name="address" >{{ a.address }}</textarea>
         <div><p>Country</p></div>
         <select name="country">
-            <option value="">Select Country</option>
+            <option value="">{{ a.country }}</option>
             <option value="['Nigeria','NG']">Nigeria</option>
             <option value="['Afghanistan','AF']">Afghanistan</option>
             <option value="['Ãƒâ€¦land Islands','AX']">Ãƒâ€¦land Islands</option>
@@ -600,9 +604,9 @@
             <option value="['Zimbabwe','ZW']">Zimbabwe</option>
             </select>
             <div><p>State</p></div>
-        <input type="text" name="state">
+        <input type="text" name="state" value="{{ a.state }}">
         <div><p>Pincode</p></div>
-        <input type="text" name="state">
+        <input type="text" name="pincode" value="{{ a.pincode }}">
 
 
  
@@ -622,9 +626,9 @@
 
         <h5 style="margin:20px 0 10px ;">Tax Registration Details</h5>
         <div><p>PAN/IT No.</p></div>
-        <input type="text" name="pan">
+        <input type="text" name="pan_no">
         <div><p>Registration Type</p></div>
-        <select name="regtype" id="regtype">
+        <select name="register_type" id="regtype">
             <option value="No">Regular</option> 
             <option value="Yes">Composition</option>
             <option value="Yes">Consumer</option>
@@ -633,9 +637,9 @@
              
         </select>
         <div><p>GSTIN/UN</p></div>
-        <input type="text" name="gstin">
+        <input type="text" name="gst_uin">
         <div><p>Set/Alter GST details</p></div>
-        <input type="text" name="setgst">
+        <input type="text" name="alter_gst_details">
  
 
     </div>
@@ -651,6 +655,7 @@
 <div class="enter"><button>ALTER</button></div>        
 
     </form>
+    {% endfor %}
 
 </div>
 </div>

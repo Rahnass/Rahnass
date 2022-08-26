@@ -10,4 +10,5 @@ urlpatterns = [
     path('grp_alter/<int:pk>',views.grp_alter,name="grp_alter"),
 
     path('ledger_alter/<int:pk>',views.ledger_alter,name='ledger_alter'),
+    
 ]

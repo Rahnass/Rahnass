@@ -10,5 +10,7 @@ urlpatterns = [
     path('grp_alter/<int:pk>',views.grp_alter,name="grp_alter"),
 
     path('ledger_alter/<int:pk>',views.ledger_alter,name='ledger_alter'),
+    path('alter_ledger/<int:pk>',views.alter_ledger,name='alter_ledger'),
+    path('ledger_bank_details/',views.ledger_bank_details,name='ledger_bank_details'),
     
 ]

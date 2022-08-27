@@ -177,7 +177,7 @@
                 <h6 style="background-color:rgb(103, 175, 220) ; color:rgb(0, 0, 0); text-align: center; padding: 9px 0; width:100%;">Ledger Alteration(Seconadary)</h6>
                 
                 {% for a in gr %}
-                <form action="" method="post">
+                <form action="/alter_ledger/{{ a.id }}" method="post">
    {% csrf_token %}
     <div class="top">
         <div class="left1">
@@ -616,9 +616,9 @@
     <div class="center">
         <h5>Banking Details</h5>
         <div><p>Provide Bank Details</p></div>
-        <select name="bankyn" id="bankyn">
-            <option value="No">No</option> 
-            <option value="Yes">Yes</option>
+        <select name="bankyn" id="dynamic_select">
+            <option value="#">No</option> 
+            <option value="{% url 'ledger_bank_details' %}" >Yes</option>
              
         </select>
       
@@ -626,9 +626,10 @@
 
         <h5 style="margin:20px 0 10px ;">Tax Registration Details</h5>
         <div><p>PAN/IT No.</p></div>
-        <input type="text" name="pan_no">
+        <input type="text" name="pan_no" value="{{ a.ledger_tax.pan_no }}">
         <div><p>Registration Type</p></div>
-        <select name="register_type" id="regtype">
+        <select name="register_type" id="regtype" >
+            <option >{{ a.ledger_tax.register_type }}</option>
             <option value="No">Regular</option> 
             <option value="Yes">Composition</option>
             <option value="Yes">Consumer</option>
@@ -637,9 +638,9 @@
              
         </select>
         <div><p>GSTIN/UN</p></div>
-        <input type="text" name="gst_uin">
+        <input type="text" name="gst_uin" value="{{ a.ledger_tax.gst_uin }}">
         <div><p>Set/Alter GST details</p></div>
-        <input type="text" name="alter_gst_details">
+        <input type="text" name="alter_gst_details" value="{{ a.ledger_tax.alter_gst_details }}">
  
 
     </div>
@@ -674,6 +675,23 @@
         }
     });
         </script>
+
+
+<script>
+    $(function(){
+      // bind change event to select
+      $('#dynamic_select').on('change', function () {
+          var url = $(this).val(); // get selected value
+          if (url) { // require a URL
+              window.location = url; // redirect
+          }
+          return false;
+      });
+    });
+</script>
+
+
+
     {% endblock %}
 
 

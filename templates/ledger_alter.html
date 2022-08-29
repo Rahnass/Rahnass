@@ -176,20 +176,19 @@
                 <a href="javascript:history.go(-1);" class="close">+</a>
                 <h6 style="background-color:rgb(103, 175, 220) ; color:rgb(0, 0, 0); text-align: center; padding: 9px 0; width:100%;">Ledger Alteration(Seconadary)</h6>
                 
-                {% for a in gr %}
                 <form action="/alter_ledger/{{ a.id }}" method="post">
    {% csrf_token %}
     <div class="top">
         <div class="left1">
         <div ><p>Name</p>
-        <input type="text" value="{{ a.ledger_id.ledger_name }}" name="ledger_name"></div>
+        <input type="text" value="{{ a.ledger_name }}" name="ledger_name"></div>
         <div><p>(Alias)</p>
-        <input type="text" name="ledger_alias" value="{{ a.ledger_id.ledger_alias }}"></div>
+        <input type="text" name="ledger_alias" value="{{ a.ledger_alias }}"></div>
         
     </div>
     <div class="right1">
 <h6>Total Opening Balance</h6>
-<input type="number" name="ledger_opening_bal" value="{{ a.ledger_id.ledger_opening_bal }}"><hr>
+<input type="number" name="ledger_opening_bal" value="{{ a.ledger_opening_bal }}"><hr>
     </div>
     
 </div>
@@ -197,7 +196,7 @@
     <div class="right2">
         <div><p>Under</p></div>
         <select name="group_under" id="target">
-            <option value="">{{ a.ledger_id.subgroup.name }}</option>
+            <option value="">{{ a.subgroup.name }}</option>
             <option value="Bank Account">Bank Accouts</option>
             <option value="Bank OD A/c">Bank OCC A/c</option>
             <option value="Bank OD A/c">Bank OD A/c</option>
@@ -344,6 +343,7 @@
 
 
     </div>
+    {% for a in gr %}
     <div class="left2">
         <h5>Mailing Address</h5>
         <div><p>Name</p></div>
@@ -611,7 +611,7 @@
 
  
 
-    </div>
+    </div>{% endfor %}
     
     <div class="center">
         <h5>Banking Details</h5>
@@ -656,7 +656,7 @@
 <div class="enter"><button>ALTER</button></div>        
 
     </form>
-    {% endfor %}
+
 
 </div>
 </div>

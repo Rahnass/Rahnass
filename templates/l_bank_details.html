@@ -164,34 +164,63 @@
         <div class="container">
             <div class="form1">
                 <a href="javascript:history.go(-1);" class="close">+</a>
-                <h6 style="background-color:rgb(103, 175, 220) ; color:rgb(0, 0, 0); text-align: center; padding: 9px 0; width:100%;">Bank Details for :</h6>
+                <h6 style="background-color:rgb(103, 175, 220) ; color:rgb(0, 0, 0); text-align: center; padding: 9px 0; width:100%;">Bank Details for : {{ a.ledger_name }}</h6>
                 
             
-                <form action="" method="post">
+                <form action="{% url 'add_bank_details' a.id %}" method="post">
    {% csrf_token %}
     <div class="top">
         <div class="left1">
             <div><p>Transaction Type</p></div>
-            <select name="bankyn" id="dynamic_select">
+            <select name="ttype" id="dynamic_select">
                 <option value="" >----Select----</option>
-                <option value="sundry" >Cheque</option>
-                <option value="" >e-Fund Transfer</option>
-                <option value="" >Others</option>
+                <option value="cheque" >Cheque</option>
+                <option value="efund" >e-Fund Transfer</option>
+                <option value="others" >Others</option>
                  
             </select>
     
 </div>
 </div><br>
-
-<div id="sundry" class="inv">
+<center>
+<div id="cheque" class="inv">
            
      
      
-    <div><p>Cross Using :</p><input type="text" style="width: 400px; padding:10px;" name="maintain_balance_bill_by_bill" placeholder="A/c Payee"></div>
+    <div><p>Cross Using :</p><input type="text" style="width: 400px; padding:10px;" name="cross" placeholder="A/c Payee"></div>
    
-    </div><hr>
+    </div>
 
-<div class="enter"><button>ADD</button></div>   
+    <div id="efund" class="inv">
+     
+        <div><p>A/c No . </p><input type="text" style="width: 400px; " name="acno"  ></div>
+        <div><p>IFSC </p><input type="text" style="width: 400px; " name="ifsc" ></div>
+        <div><p>Bank Name </p><input type="text" style="width: 400px; " name="bankname"  ></div>
+    </div></center>
+    <hr>
+
+
+
+<div ><center>
+    <table border="1">
+        <tr>
+          <th> Transaction Type</th>
+          <th>details</th>
+</tr>
+        {% for b in bnn %}
+        <tr>
+          <td >{{ b.transaction_type }}</td>
+          <td>{{ b.cross_using }}<br>
+          {{ b.acno }}<br>
+         {{ b.ifscode }}<br>
+          {{ b.bankname }}</td>
+          
+        </tr>
+        {% endfor %}
+  </table></center>
+</div>    
+<div class="enter"><button>ADD</button><br>
+    </div>  
 
 
 

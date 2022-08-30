@@ -1,6 +1,7 @@
+from asyncio.windows_events import NULL
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from TallyApp.models import L_Tax_Register, Ledger, Ledger_Banking_Details, Ledger_Mailing_Address, Ledger_Rounding, Ledger_Satutory, Ledger_sundry, Ledger_tax,  MainGroup, SubGroup ,Under
+from TallyApp.models import Ledger,  MainGroup, SubGroup ,Under, lbank
 
 # Create your views here.
 def home(request):
@@ -35,7 +36,7 @@ def grp_alter(request,pk):
         
         grp.save()
         return redirect('groups')
-    return render(request, 'main_group.html',)       
+    return render(request, 'main_group.html')       
 
 def ledgers(request):
     grpp=Under.objects.all()
@@ -45,9 +46,7 @@ def ledgers(request):
 
 def ledger_alter(request,pk):
     grpp=Ledger.objects.get(id=pk)
-    gr=Ledger_Mailing_Address.objects.filter(ledger_id_id=grpp)
-    bnk=Ledger_Banking_Details.objects.filter(ledger_id_id=grpp)
-    context={'a':grpp,'gr':gr,'bnk':bnk}
+    context={'a':grpp}
     return render(request, 'ledger_alter.html',context)  
 
 
@@ -61,98 +60,74 @@ def alter_ledger(request,pk):
         led.ledger_type = request.POST.get('ledger_type', False)
         led.subgroup_name = request.POST.get('group_under',False)
 
+        led.mail_name = request.POST.get('name', False)
+        led.mail_address = request.POST.get('address', False)
+        led.mail_state = request.POST.get('state', False)
+        led.mail_country = request.POST.get('country', False)
+        led.mail_pincode = request.POST.get('pincode', False)
+
+        led.bank_od_limit = request.POST.get('od_limit', False)
+        led.bank_holder_name =request.POST.get('holder_name', False)
+        led.bank_ac_number = request.POST.get('ac_number', False)
+        led.bank_ifsc = request.POST.get('ifsc', False)
+        led.bank_swift_code =request.POST.get('swift_code', False)
+        led.bank_bank_name = request.POST.get('bank_name', False)
+        led.bank_branch_name = request.POST.get('branch_name', False)
+        led.bank_alter_chk_bks =request.POST.get('alter_chk_bks', False)
+        led.bank_enbl_chk_printing = request.POST.get('enbl_chk_printing', False)
+
+        led.tax_gst_uin = request.POST.get('gst_uin', False)
+        led.tax_register_type = request.POST.get('register_type', False)
+        led.tax_pan_no = request.POST.get('pan_no', False)
+        led.tax_alter_gst_details =request.POST.get('alter_gst_details', False)
+
+        led.sta_assessable_calculation = request.POST.get('assessable_calculation', False)
+        led.sta_Appropriate_to =request.POST.get('Appropriate_to', False)
+        led.sta_gst_applicable = request.POST.get('is_gst_applicable',False)
+        led.sta_Set_alter_GST =request.POST.get('Set_alter_GST', False)
+        led.sta_type_of_supply = request.POST.get('type_of_supply',False)
+        led.sta_Method_of_calc =request.POST.get('Method_of_calc', False)
+
+        led.rou_Rounding_Method = request.POST.get('Rounding_Method', False)
+        led.rou_Round_limit  = request.POST.get('Round_limit', False)
+
+        led.ta_type_of_duty_or_tax =request.POST.get('type_of_duty_or_tax', False)
+        led.ta_type_of_tax =request.POST.get('type_of_tax', False)
+        led.ta_valuation_type =request.POST.get('valuation_type', False)
+        led.ta_rate_per_unit =request.POST.get('rate_per_unit', False)
+        led.ta_Persentage_of_calculation =request.POST.get('Persentage_of_calculation', False)
+
+        led.sun_maintain_balance_bill_by_bill =request.POST.get('maintain_balance_bill_by_bill', False)
+        led.sun_Default_credit_period =request.POST.get('Default_credit_period', False)
+        led.sun_Check_for_credit_days =request.POST.get('Check_for_credit_days', False) 
+
         led.save()
-        idd = led.id
-        
-        try:
-            ledm = Ledger_Mailing_Address.objects.get(id=pk)
-            ledm.name = request.POST.get('name', False)
-            ledm.address = request.POST.get('address', False)
-            ledm.state = request.POST.get('state', False)
-            ledm.country = request.POST.get('country', False)
-            ledm.pincode = request.POST.get('pincode', False)
-
-            ledm.save()
-        except Ledger_Mailing_Address.DoesNotExist:
-            ledm = None
-            
-        try:
-            ledb = Ledger_Banking_Details.objects.get(id=idd).first()
-            ledb.od_limit = request.POST.get('od_limit', False)
-            ledb.holder_name =request.POST.get('holder_name', False)
-            ledb.ac_number = request.POST.get('ac_number', False)
-            ledb.ifsc = request.POST.get('ifsc', False)
-            ledb.swift_code =request.POST.get('swift_code', False)
-            ledb.bank_name = request.POST.get('bank_name', False)
-            ledb.branch_name = request.POST.get('branch_name', False)
-            ledb.alter_chk_bks =request.POST.get('alter_chk_bks', False)
-            ledb.enbl_chk_printing = request.POST.get('enbl_chk_printing', False) 
-            ledb.save()
-        except Ledger_Banking_Details.DoesNotExist:
-            ledb = None
-
-        
-        try:
-            ledt = L_Tax_Register.objects.get(id=idd)
-            ledt.gst_uin = request.POST.get('gst_uin', False)
-            ledt.register_type = request.POST.get('register_type', False)
-            ledt.pan_no = request.POST.get('pan_no', False)
-            ledt.alter_gst_details =request.POST.get('alter_gst_details', False)
-
-            ledt.save()
-        except L_Tax_Register.DoesNotExist:
-            ledt = None
-
-        try:
-            leds = Ledger_Satutory.objects.get(id=idd)
-            leds.assessable_calculation = request.POST.get('assessable_calculation', False)
-            leds.Appropriate_to =request.POST.get('Appropriate_to', False)
-            leds.gst_applicable = request.POST.get('is_gst_applicable',False)
-            leds.Set_alter_GST =request.POST.get('Set_alter_GST', False)
-            leds.type_of_supply = request.POST.get('type_of_supply',False)
-            leds.Method_of_calc =request.POST.get('Method_of_calc', False)
-
-            leds.save()
-        except Ledger_Satutory.DoesNotExist:
-            leds = None   
-
-        try:
-
-            ledr = Ledger_Rounding.objects.get(id=idd)
-            ledr.Rounding_Method = request.POST.get('Rounding_Method', False)
-            ledr.Round_limit  = request.POST.get('Round_limit', False)
-
-            ledr.save()
-        except Ledger_Rounding.DoesNotExist:
-            ledr = None
-
-        try:
-
-            ledtax = Ledger_tax.objects.get(id=idd)
-            ledtax.type_of_duty_or_tax =request.POST.get('type_of_duty_or_tax', False)
-            ledtax.type_of_tax =request.POST.get('type_of_tax', False)
-            ledtax.valuation_type =request.POST.get('valuation_type', False)
-            ledtax.rate_per_unit =request.POST.get('rate_per_unit', False)
-            ledtax.Persentage_of_calculation =request.POST.get('Persentage_of_calculation', False)
-
-            ledtax.save()
-        except Ledger_tax.DoesNotExist:
-            ledtax = None
-
-        try:
-
-            ledsun = Ledger_sundry.objects.get(id=idd)
-            ledsun.maintain_balance_bill_by_bill =request.POST.get('maintain_balance_bill_by_bill', False)
-            ledsun.Default_credit_period =request.POST.get('Default_credit_period', False)
-            ledsun.Check_for_credit_days =request.POST.get('Check_for_credit_days', False)    
-
-            ledsun.save() 
-        except Ledger_sundry.DoesNotExist:
-            ledsun = None    
-
         return redirect('ledgers')
     return render(request,'ledger_alter.html')
 
 
-def ledger_bank_details(request):
-    return render(request,'l_bank_details.html')
+def ledger_bank_details(request,pk):
+    bnk=Ledger.objects.get(id=pk)
+    bnn=lbank.objects.filter(ledger_id=bnk.id)
+    context = {'a':bnk,'bnn':bnn}
+    return render(request,'l_bank_details.html',context)
+
+def add_bank_details(request,pk):
+    if request.method == 'POST':
+        bb = Ledger.objects.get(id=pk)
+        abtype = request.POST.get('ttype',False)
+        abcross = request.POST.get('cross',False)
+        abacno = request.POST['acno']
+        abifsc = request.POST.get('ifsc',False)
+        abbname = request.POST.get('bankname',False)
+
+        lbnk = lbank(ledger_id_id=bb.id,transaction_type=abtype,cross_using=abcross,acno=abacno,ifscode=abifsc,bankname=abbname)
+        lbnk.save()
+        context = {'bb':bb}
+        return render(request, 'l_bank_details.html',context)   
+    return render(request, 'ledgers.html')         
+
+def ledger_cheque_details(request,pk):
+    bnk=Ledger.objects.get(id=pk)
+    context = {'a':bnk}
+    return render(request,'l_cheque_range.html',context)

@@ -197,7 +197,7 @@
         <div><p>Under</p></div>
         <select name="group_under" id="target">
             <option value="">{{ a.subgroup.name }}</option>
-            <option value="Bank Account">Bank Accouts</option>
+            <option value="Bank OD A/c">Bank Accouts</option>
             <option value="Bank OD A/c">Bank OCC A/c</option>
             <option value="Bank OD A/c">Bank OD A/c</option>
             <option value="Bank_Account">Branch Divisions</option>
@@ -233,54 +233,39 @@
             <option value="current_assets">Unsecured Loans</option>   
         </select>
         <!-------------------Hidden Content------------------->
-        
-        <div id="Bank Account" class="inv">
-            <h5 style="margin-top: 15px;"><u>Bank Account Details</u></h5>
-        <div><p>A/c Holder's Name :</p><input type="text" value="{{ a.holder_name }}" name="holder_name"></div>
-        <div><p>A/c No :</p><input type="number" name="ac_number" value="" ></div>
-        <div><p>IFS Code:</p><input type="text" name="ifsc"></div>
-        <div><p>SWIFT Code :</p><input type="text" name="swift_code"></div>
-        <div><p>Bank Name :</p><input type="text" name="bank_name"></div>
-        <div><p>Branch :</p><input type="text" name="branch_name"></div>
-        <h5 style="margin-top: 15px;"><u>Bank Configuration</u></h5>
-        <div><p>Set/Alter range for Cheque Books</p></div>
-        <select name="alter_chk_bks" id="bankyn">
-            <option value="No">No</option> 
-            <option value="Yes">Yes</option>
-             
-        </select>
-        <div><p>Enable Cheque Printing</p></div>
-        <select name="enbl_chk_printing" id="bankyn">
-            <option value="No">No</option> 
-            <option value="Yes">Yes</option>
-             
-        </select>
-        <div><p>Enable Auto Recouncilation</p><input type="text" value="No" name="chqconfg" readonly></div>
-       
-        </div>
+
+
+
         <div id="Bank OD A/c" class="inv">
-            <div><p>Set OD Limit :</p><input type="text" name="od_limit"></div>
-            <h5 style="margin-top: 15px;"><u>Bank Account Details</u></h5>
-        <div><p>A/c Holder's Name :</p><input type="text" name="holder_name" value="{{ a.ledger_bank.holder_name }}"></div>
-        <div><p>A/c No :</p><input type="number" name="ac_number"></div>
-        <div><p>IFS Code:</p><input type="text" name="ifsc"></div>
-        <div><p>SWIFT Code :</p><input type="text" name="swift_code"></div>
-        <div><p>Bank Name :</p><input type="text" name="bank_name"></div>
-        <div><p>Branch :</p><input type="text" name="branch_name"></div>
+            <div><p>A/c Holder's Name :</p><input type="text" value="{{ a.bank_holder_name }}" name="holder_name"></div>
+        <div><p>A/c No :</p><input type="number" name="ac_number" value="{{ a.bank_ac_number }}" ></div>
+        <div><p>IFS Code:</p><input type="text" name="ifsc" value="{{ a.bank_ifsc }}"></div>
+        <div><p>SWIFT Code :</p><input type="text" name="swift_code" value="{{ a.bank_swift_code }}"></div>
+        <div><p>Bank Name :</p><input type="text" name="bank_name" value="{{ a.bank_bank_name }}"></div>
+        <div><p>Branch :</p><input type="text" name="branch_name" value="{{ a.bank_branch_name }}"></div>
         <h5 style="margin-top: 15px;"><u>Bank Configuration</u></h5>
         <div><p>Set/Alter range for Cheque Books</p></div>
-        <select name="alter_chk_bks" id="bankyn" >
+        <select name="alter_chk_bks" id="bnkk">
             <option value="No">No</option> 
-            <option value="Yes">Yes</option>
+            <option value="{% url 'ledger_cheque_details' a.id %}">Yes</option>
              
         </select>
+        
         <div><p>Enable Cheque Printing</p></div>
-        <select name="enbl_chk_printing" id="bankyn">
+        <select name="enbl_chk_printing" id="bnn">
             <option value="No">No</option> 
-            <option value="Yes">Yes</option>
+            <option  value="Yes">Yes</option>
              
         </select>
-        <div><p>Enable Auto Recouncilation</p><input type="text" value="No" name="chqconfg" readonly></div>
+        <div><p>Set/Alter Cheque Printing Configuration</p></div>
+        <select name="alter_chk_bks" id="bnn">
+            <option value="No">No</option> 
+            <option value="{% url 'ledger_cheque_details' a.id %}">Yes</option>
+             
+        </select>
+      
+
+        <div><p>Enable Auto Recouncilation</p><input type="text" value="{{ a.bank_auto_recoun }}" name="chqconfg" readonly></div>
        
         </div>
 
@@ -288,29 +273,40 @@
             <h5 style="margin-top: 15px;"><u>Statutory Details</u></h5>
      
      
-        <div><p>Include in assessable value calculation for :</p><input type="text" name="assessable_calculation" ></div>
-       
+        <div><p>Include in assessable value calculation for :</p></div>
+        <select name="assessable_calculation" id="bnk">
+            <option value="None">Not Applicable</option> 
+            <option value="gst">GST</option>
+             
+        </select>
         </div>
 
 
         <div id="direct_expenses" class="inv">
-            <div><p>Type of Ledger:</p><input type="text" name="ledger_type" ></div>
+            <div><p>Type of Ledger:</p><input type="text" name="ledger_type" >
+                <select name="ledger_type" id="bnk">
+                    <option value="None">Not Applicable</option> 
+                    <option value="discount">Discount</option>
+                    <option value="invoice rounding">Invoice Rounding</option>
+                     
+                </select>
+            </div>
             <h5 style="margin-top: 15px;"><u>Statutory Details</u></h5>
      
      
-        <div><p>Is GST Applicable :</p><input type="text" name="is_gst_applicable"  ></div>
-        <div><p>set/alter GST details</p><input type="text" name="Set_alter_GST"></div>
-        <div><p>Type of Supply</p><input type="text" name="type_of_supply"></div>
+        <div><p>Is GST Applicable :</p><input type="text" name="is_gst_applicable" value="{{ a.sta_gst_applicable }}" ></div>
+        <div><p>set/alter GST details</p><input type="text" name="Set_alter_GST" value="{{ a.sta_Set_alter_GST }}"></div>
+        <div><p>Type of Supply</p><input type="text" name="type_of_supply" value="{{ a.sta_type_of_supply }}"></div>
         </div>
 
 
         <div id="duties_taxes" class="inv">
-            <div><p>Type of duty/tax:</p><input type="text" name="type_of_duty_or_tax"  ></div>
-            <div><p>Percentage of calculation:</p><input type="text" name="Persentage_of_calculation" ></div>
+            <div><p>Type of duty/tax:</p><input type="text" name="type_of_duty_or_tax" value="{{ a.ta_type_of_duty_or_tax }}"  ></div>
+            <div><p>Percentage of calculation:</p><input type="text" name="Persentage_of_calculation"value="{{ a.ta_Persentage_of_calculation }}" ></div>
             <h5 style="margin-top: 15px;"><u>Statutory Details</u></h5>
      
      
-        <div><p>Include in assessable value calculation for :</p><input type="text" name="assessable_calculation" ></div>
+        <div><p>Include in assessable value calculation for :</p><input type="text" name="assessable_calculation" value="{{ a.sta_assessable_calculation }}" ></div>
        
         </div>
         <div id="fixed_assets" class="inv">
@@ -318,16 +314,16 @@
             <h5 style="margin-top: 15px;"><u>Statutory Details</u></h5>
      
      
-        <div><p>Is GST Applicable :</p><input type="text" name="is_gst_applicable" ></div>
-        <div><p>set/alter GST details</p><input type="text" name="Set_alter_GST"></div>
-        <div><p>Type of Supply</p><input type="text" name="type_of_supply"></div>
-        </div>
+            <div><p>Is GST Applicable :</p><input type="text" name="is_gst_applicable" value="{{ a.sta_gst_applicable }}" ></div>
+            <div><p>set/alter GST details</p><input type="text" name="Set_alter_GST" value="{{ a.sta_Set_alter_GST }}"></div>
+            <div><p>Type of Supply</p><input type="text" name="type_of_supply" value="{{ a.sta_type_of_supply }}"></div>
+            </div>
 
         <div id="sundry" class="inv">
            
      
      
-        <div><p>Maintain balances bill-by-bill :</p><input type="text" name="maintain_balance_bill_by_bill" ></div>
+        <div><p>Maintain balances bill-by-bill :</p><input type="text" name="maintain_balance_bill_by_bill" value="sun_maintain_balance_bill_by_bill" ></div>
        
         </div>
 
@@ -343,16 +339,15 @@
 
 
     </div>
-    {% for a in gr %}
     <div class="left2">
         <h5>Mailing Address</h5>
         <div><p>Name</p></div>
-        <input type="text" name="name" value="{{ a.name }}">
+        <input type="text" name="name" value="{{ a.mail_name }}">
         <div><p>Address</p></div>
-        <textarea row="5" name="address" >{{ a.address }}</textarea>
+        <textarea row="5" name="address" >{{ a.mail_address }}</textarea>
         <div><p>Country</p></div>
         <select name="country">
-            <option value="">{{ a.country }}</option>
+            <option value="">{{ a.mail_country }}</option>
             <option value="['Nigeria','NG']">Nigeria</option>
             <option value="['Afghanistan','AF']">Afghanistan</option>
             <option value="['Ãƒâ€¦land Islands','AX']">Ãƒâ€¦land Islands</option>
@@ -604,21 +599,21 @@
             <option value="['Zimbabwe','ZW']">Zimbabwe</option>
             </select>
             <div><p>State</p></div>
-        <input type="text" name="state" value="{{ a.state }}">
+        <input type="text" name="state" value="{{ a.mail_state }}">
         <div><p>Pincode</p></div>
-        <input type="text" name="pincode" value="{{ a.pincode }}">
+        <input type="text" name="pincode" value="{{ a.mail_pincode }}">
 
 
  
 
-    </div>{% endfor %}
+    </div>
     
     <div class="center">
         <h5>Banking Details</h5>
         <div><p>Provide Bank Details</p></div>
         <select name="bankyn" id="dynamic_select">
             <option value="#">No</option> 
-            <option value="{% url 'ledger_bank_details' %}" >Yes</option>
+            <option value="{% url 'ledger_bank_details' a.id %}" >Yes</option>
              
         </select>
       
@@ -626,10 +621,10 @@
 
         <h5 style="margin:20px 0 10px ;">Tax Registration Details</h5>
         <div><p>PAN/IT No.</p></div>
-        <input type="text" name="pan_no" value="{{ a.ledger_tax.pan_no }}">
+        <input type="text" name="pan_no" value="{{ a.tax_pan_no }}">
         <div><p>Registration Type</p></div>
         <select name="register_type" id="regtype" >
-            <option >{{ a.ledger_tax.register_type }}</option>
+            <option >{{ a.tax_register_type }}</option>
             <option value="No">Regular</option> 
             <option value="Yes">Composition</option>
             <option value="Yes">Consumer</option>
@@ -638,9 +633,9 @@
              
         </select>
         <div><p>GSTIN/UN</p></div>
-        <input type="text" name="gst_uin" value="{{ a.ledger_tax.gst_uin }}">
+        <input type="text" name="gst_uin" value="{{ a.tax_gst_uin }}">
         <div><p>Set/Alter GST details</p></div>
-        <input type="text" name="alter_gst_details" value="{{ a.ledger_tax.alter_gst_details }}">
+        <input type="text" name="alter_gst_details" value="{{ a.tax_alter_gst_details }}">
  
 
     </div>
@@ -691,41 +686,23 @@
 </script>
 
 
+<script>
+    $(function(){
+      // bind change event to select
+      $('#bnkk').on('change', function () {
+          var url = $(this).val(); // get selected value
+          if (url) { // require a URL
+              window.location = url; // redirect
+          }
+          return false;
+      });
+    });
+</script>
+
+
+ 
+
 
     {% endblock %}
 
-
-
-
-<!--<style>
-    .inv {
-    display: none;
-}
-</style>
-        <select id="target">
-            <option value="">Select...</option>
-            <option value="content_1">Option 1</option>
-            <option value="content_2">Option 2</option>
-            <option value="content_3">Option 3</option>
-        <select>
-
-        <div id="content_1" class="inv">Content 1</div>
-        <div id="content_2" class="inv">Content 2</div>
-        <div id="content_3" class="inv">Content 3</div>
-  
-<script>
-    document
-  .getElementById('target')
-  .addEventListener('change', function () {
-    'use strict';
-    var vis = document.querySelector('.vis'),   
-      target = document.getElementById(this.value);
-    if (vis !== null) {
-      vis.className = 'inv';
-    }
-    if (target !== null ) {
-      target.className = 'vis';
-    }
-});
-    </script>-->
 

@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block body %}
     {% load static %}
+
+
     <style>
         *{
             padding: 0;
@@ -41,7 +43,7 @@
         }
         select{
             padding: 10px 20px;
-            width: 100%;
+            width: 83%;
             border: none;
             background-color: rgba(255, 255, 255, 0.4);
 
@@ -79,16 +81,21 @@
             display: flex; 
         }
         .top .left1{
-            width: 100%;
+            width: 50%;
            
             border-bottom: 1px solid rgba(128, 128, 128, 0.6);
-            display: flex;
-            flex-direction:row;
             
             padding: 30px;
 
         }
+        .top .right1{
+            width: 50%;
 
+            background-color: rgba(128, 128, 128, 0.09);
+            border-bottom: 1px solid rgba(128, 128, 128, 0.6);
+            padding: 30px;
+            
+        }
         .left1 div{
             width: 50%;
             
@@ -99,29 +106,32 @@
             display: flex;
         }
         .bottom .left2{
-            width: 33.33%;
+            width: 50%;
             padding: 30px;
-            border-right: 1px solid rgba(128, 128, 128, 0.6);
+            
             display: flex;
             flex-direction: column;
             align-items: center;
             
         }
         .bottom .right2{
-            width: 33.333%;
+            width: 25%;
             padding: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            border-right: 1px solid rgba(128, 128, 128, 0.6);
+            background-color: rgba(128, 128, 128, 0.09);
+           
             
             
         }
         .bottom .center{
+            width: 25%;
             padding: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            background-color: rgba(128, 128, 128, 0.09);
             
             
         }
@@ -163,69 +173,38 @@ display: none;
     <div class="container">
         <div class="form1">
             <a href="javascript:history.go(-1);" class="close">+</a>
-            <h6 style="background-color:rgb(103, 175, 220) ; color:rgb(0, 0, 0); text-align: center; padding: 9px 0; width:100%;">Cheque Range for : {{ a.ledger_name }}</h6>
+            <h6 style="background-color:rgb(103, 175, 220) ; color:rgb(0, 0, 0); text-align: center; padding: 9px 0; width:100%;">Print</h6>
             
-        
-            <form action="/add_cheque_details/{{ a.id }}" method="post">
+            <form action="/add_cheque_dimensions/{{ a.id }}" method="post">
 {% csrf_token %}
 
+<center>
+<div><p>Title : </p></div>
+<input type="text" style="width:500px;" value="Sample Cheque Printing" readonly>
+<div><p>Printer : </p></div>
+<input type="text" style="width:500px;" value="Microsoft Print to PDF" readonly>
+<div><p>Paper size : </p></div>
+<input type="text" style="width:500px;" value="Letter(8.50''x10.98'')or(216mmx279mm)" readonly>
+<div><p>Print area : </p></div>
+<input type="text" style="width:500px;" value="(8.50''x10.98'')or(216mmx279mm)" readonly>
+<div><p>Number of copies : </p></div>
+<input type="text" style="width:500px;" value="1" readonly>
 
-<table border="1" style="width:100%;">
-    <tr>
-        <th>From<br> Number</th>
-        <th>To<br> Number</th>
-        <th>Number of<br> Cheques</th>
-        <th>Name of<br> ChequeBook</th>
+</center>
 
-    </tr>
-    <tr>
-        <td><input type="number" name="fno"></td>
-        <td><input type="number" name="tno"></td>
-        <td><input type="number" name="noc"></td>
-        <td><input type="number" name="nac"></td>
-    </tr>
-</table>
-<div class="enter"><button>OK</button><br>
-</div>  
+
+<div class="enter">
+   <a href="" class="btn btn-info" style="text-transform:uppercase; margin-right:20px;">configure</a>
+   <a href="" class="btn btn-info"style="text-transform:uppercase; margin-right:20px;">Preview</a>
+   <a href=""class="btn btn-info" style="text-transform:uppercase; margin-right:20px;">Print</a>
+</div>        
+ 
 
 </form>
+
+
 </div>
 </div>
 
 
-
-{% endblock %}
-
-
-<!--<style>
-.inv {
-display: none;
-}
-</style>
-    <select id="target">
-        <option value="">Select...</option>
-        <option value="content_1">Option 1</option>
-        <option value="content_2">Option 2</option>
-        <option value="content_3">Option 3</option>
-    <select>
-
-    <div id="content_1" class="inv">Content 1</div>
-    <div id="content_2" class="inv">Content 2</div>
-    <div id="content_3" class="inv">Content 3</div>
-
-<script>
-document
-.getElementById('target')
-.addEventListener('change', function () {
-'use strict';
-var vis = document.querySelector('.vis'),   
-  target = document.getElementById(this.value);
-if (vis !== null) {
-  vis.className = 'inv';
-}
-if (target !== null ) {
-  target.className = 'vis';
-}
-});
-</script>-->
-
+{% endblock %}    

@@ -258,9 +258,9 @@
              
         </select>
         <div><p>Set/Alter Cheque Printing Configuration</p></div>
-        <select name="alter_chk_bks" id="bnn">
+        <select name="alter_chk_bks" id="printing">
             <option value="No">No</option> 
-            <option value="{% url 'ledger_cheque_details' a.id %}">Yes</option>
+            <option value="{% url 'cheque_printing' a.id %}">Yes</option>
              
         </select>
       
@@ -277,20 +277,48 @@
         <select name="assessable_calculation" id="bnk">
             <option value="None">Not Applicable</option> 
             <option value="gst">GST</option>
+
              
         </select>
+        <div><p>Appropriate to :</p></div>
+        <select name="Appropriate_to" id="bnk">
+            <option value="both">Both</option> 
+            <option value="goods">Goods</option>
+            <option value="services">Services</option>
+
+             
+        </select>
+        <div><p>Method of Calculation :</p></div>
+        <select name="Method_of_calc" id="bnk">
+            <option value="Based on value">Based on value</option> 
+            <option value="Based on quandity">Based on quandity</option>
+
+             
+        </select>
+
         </div>
 
 
         <div id="direct_expenses" class="inv">
-            <div><p>Type of Ledger:</p><input type="text" name="ledger_type" >
+            <div><p>Type of Ledger:</p>
                 <select name="ledger_type" id="bnk">
                     <option value="None">Not Applicable</option> 
                     <option value="discount">Discount</option>
                     <option value="invoice rounding">Invoice Rounding</option>
                      
                 </select>
+                
             </div>
+            <div><p>Rounding method:</p>
+                <select name="Rounding_Method" id="bnk">
+                    <option value="Downward Rounding">Downward Rounding</option> 
+                    <option value="Normal Rounding">Normal Rounding</option>
+                    <option value="upward rounding">Upward Rounding</option>
+                     
+                </select>
+                
+            </div>
+            <div><p>Rounding Limit:</p><input type="number" name="Round_limit"  ></div>
             <h5 style="margin-top: 15px;"><u>Statutory Details</u></h5>
      
      
@@ -301,7 +329,34 @@
 
 
         <div id="duties_taxes" class="inv">
-            <div><p>Type of duty/tax:</p><input type="text" name="type_of_duty_or_tax" value="{{ a.ta_type_of_duty_or_tax }}"  ></div>
+            <div><p>Type of duty/tax:</p>
+                <select name="type_of_duty_or_tax" id="bnk">
+                    <option value="others">others</option> 
+                    <option value="gst">GST</option>
+                     
+                </select>
+                
+            </div>
+            <div><p>Tax type :</p>
+                <select name="type_of_tax" id="bnk">
+                    <option value="Central Tax">Central Tax</option> 
+                    <option value="cess">Cess</option>
+                    <option value="Integrated Tax">Integrated Tax</option>
+                    <option value="State Tax">State Tax</option>
+                     
+                </select>
+                
+            </div>
+            <div><p>Valuation type :</p>
+                <select name="valuation_type" id="bnk">
+                    <option value="any ">Any</option> 
+                    <option value="Based on Value">Based on Value</option>
+                    <option value="Based on Quandity">Based on Quandity</option>
+                
+                     
+                </select>
+                
+            </div>
             <div><p>Percentage of calculation:</p><input type="text" name="Persentage_of_calculation"value="{{ a.ta_Persentage_of_calculation }}" ></div>
             <h5 style="margin-top: 15px;"><u>Statutory Details</u></h5>
      
@@ -314,17 +369,34 @@
             <h5 style="margin-top: 15px;"><u>Statutory Details</u></h5>
      
      
-            <div><p>Is GST Applicable :</p><input type="text" name="is_gst_applicable" value="{{ a.sta_gst_applicable }}" ></div>
-            <div><p>set/alter GST details</p><input type="text" name="Set_alter_GST" value="{{ a.sta_Set_alter_GST }}"></div>
-            <div><p>Type of Supply</p><input type="text" name="type_of_supply" value="{{ a.sta_type_of_supply }}"></div>
+            <div><p>Is GST Applicable :</p><input type="text"  value="Not Applicable" readonly></div>
+            <div><p>set/alter GST details</p><input type="text"  value="NO" readonly></div>
+
             </div>
 
         <div id="sundry" class="inv">
            
      
      
-        <div><p>Maintain balances bill-by-bill :</p><input type="text" name="maintain_balance_bill_by_bill" value="sun_maintain_balance_bill_by_bill" ></div>
-       
+        <div><p>Maintain balances bill-by-bill :</p>
+                <select name="maintain_balance_bill_by_bill" id="bnk">
+                    <option value="no">No</option> 
+                    <option value="yes">Yes</option>
+
+                     
+                </select>
+                
+            </div>
+            <div><p>default credit period</p><input type="text"  value="" name="Default_credit_period" ></div>
+            <div><p>check for credit days during voucher enter :</p>
+                <select name="Check_for_credit_days" id="bnk">
+                    <option value="no">No</option> 
+                    <option value="yes">Yes</option>
+
+                     
+                </select>
+                
+            </div>
         </div>
 
 
@@ -700,7 +772,18 @@
 </script>
 
 
- 
+<script>
+    $(function(){
+      // bind change event to select
+      $('#printing').on('change', function () {
+          var url = $(this).val(); // get selected value
+          if (url) { // require a URL
+              window.location = url; // redirect
+          }
+          return false;
+      });
+    });
+</script>
 
 
     {% endblock %}

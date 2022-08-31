@@ -167,7 +167,7 @@
                 <h6 style="background-color:rgb(103, 175, 220) ; color:rgb(0, 0, 0); text-align: center; padding: 9px 0; width:100%;">Bank Details for : {{ a.ledger_name }}</h6>
                 
             
-                <form action="{% url 'add_bank_details' a.id %}" method="post">
+                <form action="/add_bank_details/{{ a.id }}" method="post">
    {% csrf_token %}
     <div class="top">
         <div class="left1">

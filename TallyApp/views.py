@@ -1,7 +1,7 @@
 from asyncio.windows_events import NULL
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from TallyApp.models import Ledger,  MainGroup, SubGroup ,Under, lbank
+from TallyApp.models import Ledger,  MainGroup, Print_Cheque, SubGroup ,Under, lbank, lcheque
 
 # Create your views here.
 def home(request):
@@ -37,6 +37,21 @@ def grp_alter(request,pk):
         grp.save()
         return redirect('groups')
     return render(request, 'main_group.html')       
+
+def sub_grp_alter(request,pk):
+    if request.method=='POST':
+        sgrp =SubGroup.objects.get(id=pk)
+        sgrp.name = request.POST.get('name')
+        sgrp.alias = request.POST.get('alias')
+        sgrp.group = request.POST.get('grp')
+        sgrp.nett_balance = request.POST.get('nett')
+        sgrp.used_for = request.POST.get('used')
+        sgrp.method = request.POST.get('method')
+        
+        
+        sgrp.save()
+        return redirect('groups')
+    return render(request, 'sub_group.html')  
 
 def ledgers(request):
     grpp=Under.objects.all()
@@ -131,3 +146,97 @@ def ledger_cheque_details(request,pk):
     bnk=Ledger.objects.get(id=pk)
     context = {'a':bnk}
     return render(request,'l_cheque_range.html',context)
+
+def add_cheque_details(request,id):
+    if request.method == 'POST':
+        cc = Ledger.objects.get(id=id)
+        fromno = request.POST.get("fno")
+        tono = request.POST.get("tno")
+        numc = request.POST.get("noc")
+        namec = request.POST.get("nac")
+
+        lchq = lcheque(ledger_id=cc,from_no=fromno,to_no=tono,no_cheques=numc,name_cheque=namec)
+        lchq.save()
+        return render(request,'l_cheque_range.html')
+    return render('ledgers.html')    
+
+def cheque_printing(request,pk):
+    bnk=Ledger.objects.get(id=pk)
+    context = {'a':bnk}
+    return render(request,'cheque_printing.html',context)
+
+def add_cheque_dimensions(request,id):
+    if request.method == 'POST':
+        cpp = Ledger.objects.get(id=id)
+        cwidth = request.POST.get("widthc",False)
+        cheight = request.POST.get("heightc",False)
+
+        ccsl = request.POST.get("start_left",False)
+        ccst = request.POST.get("start_top",False)
+
+        cddl = request.POST.get("dist_left",False)
+        cddt = request.POST.get("dist_top",False)
+        cdstyl = request.POST.get("datec",False)
+        cdsep = request.POST.get("seperator_d",False)
+        cdsepwidth = request.POST.get("sep_width",False)
+        cdsepdist = request.POST.get("sep_dist",False)
+
+        ppdl = request.POST.get("p_dist_left",False)
+        ppdt = request.POST.get("p_dist_top",False)
+        ppwidth = request.POST.get("p_width_area",False)
+
+        amtdt = request.POST.get("a_dist_2",False)
+        amthg = request.POST.get("a_height_2")
+        amtdtt = request.POST.get("a_dist_3")
+        amtstl = request.POST.get("a_start_left")
+        amtstll = request.POST.get("a_start_2")
+        amtwidth = request.POST.get("a_width")
+        amtcur = request.POST.get("a_currency")
+
+        cmpname = request.POST.get("com_name",False)
+        pcmpname = request.POST.get("c_name",False)
+        signf = request.POST.get("1_sign",False)
+        signs = request.POST.get("2_sign",False)
+        signdt = request.POST.get("s_dist_topp",False)
+        signsl = request.POST.get("s_dist_leftt",False)
+        signwidth = request.POST.get("sign_width",False)
+        signheight = request.POST.get("sign_height",False)
+
+
+        prchq = Print_Cheque(ledger_id=cpp,
+                               cheque_width=cwidth,
+                               cheque_height=cheight,
+                               cc_start_left=ccsl,
+                               cc_start_top=ccst,
+                               cdate_dist_left=cddl,
+                               cdate_dist_top=cddt,
+                               date_style=cdstyl,
+                               date_seprator=cdsep,
+                               date_sep_width=cdsepwidth,
+                               date_dist=cdsepdist,
+                               party_dist_left=ppdl,
+                               party_dist_top=ppdt,
+                               party_width=ppwidth,
+                               amount_dist_top=amtdt,
+                               amount_height_gap=amthg,
+                               amount_dist2_top=amtdtt,
+                               amount_start1_left=amtstl,
+                               amount_start2_left=amtstll,
+                               amount_width=amtwidth,
+                               amount_currency=amtcur,
+                               company_name=cmpname,
+                               print_cname=pcmpname,
+                               sign_first=signf,
+                               sign_second=signs,
+                               sign_dist_top=signdt,
+                               sign_start_left=signsl,
+                               sign_width=signwidth,
+                               sign_height=signheight)
+        prchq.save()
+        return render(request,'c_print.html')
+    return render('cheque_printing.html')        
+
+def c_print(request,pk):
+    bnk=Print_Cheque.objects.get(id=pk)
+    context = {'a':bnk}
+    return render(request,'c_print.html',context)

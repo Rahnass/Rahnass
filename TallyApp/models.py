@@ -110,37 +110,15 @@ class lcheque(models.Model):
     name_cheque=models.CharField(max_length=100,blank=False)
 
 class Print_Cheque(models.Model):
-    ledger_id=models.ForeignKey(Ledger,on_delete=models.CASCADE)
-    cheque_width=models.CharField(max_length=100,blank=False)
-    cheque_height=models.CharField(max_length=100,blank=False)
-
-    cc_start_left=models.CharField(max_length=100,blank=False)
-    cc_start_top=models.CharField(max_length=100,blank=False)
-
-    cdate_dist_left=models.CharField(max_length=100,blank=False)
-    cdate_dist_top=models.CharField(max_length=100,blank=False)
-    date_style=models.CharField(max_length=100,blank=False)
-    date_seprator=models.CharField(max_length=100,blank=False)
-    date_sep_width=models.CharField(max_length=100,blank=False)
-    date_dist=models.CharField(max_length=100,blank=False)
-
-    party_dist_left=models.CharField(max_length=100,blank=False)
-    party_dist_top=models.CharField(max_length=100,blank=False)
-    party_width=models.CharField(max_length=100,blank=False)
-    
-    amount_dist_top=models.CharField(max_length=100,blank=False)
-    amount_height_gap=models.CharField(max_length=100,blank=False)
-    amount_dist2_top=models.CharField(max_length=100,blank=False)
-    amount_start1_left=models.CharField(max_length=100,blank=False)
-    amount_start2_left=models.CharField(max_length=100,blank=False)
-    amount_width=models.CharField(max_length=100,blank=False)
-    amount_currency=models.CharField(max_length=100,blank=False)
-
+    ledger_id=models.OneToOneField(Ledger,on_delete=models.CASCADE)
     company_name=models.CharField(max_length=100,blank=False)
-    print_cname=models.CharField(max_length=100,blank=False)
-    sign_first=models.CharField(max_length=100,blank=False)
-    sign_second=models.CharField(max_length=100,blank=False)
-    sign_dist_top=models.CharField(max_length=100,blank=False)
-    sign_start_left=models.CharField(max_length=100,blank=False)
-    sign_width=models.CharField(max_length=100,blank=False)
-    sign_height=models.CharField(max_length=100,blank=False)
+    payee_name=models.CharField(max_length=100,blank=False)
+
+    cheque_number=models.CharField(max_length=100,blank=False)
+    cheque_date=models.CharField(max_length=100,blank=False)
+
+    amt_words=models.CharField(max_length=100,blank=False)
+    amt_number=models.CharField(max_length=100,blank=False)
+
+    
+

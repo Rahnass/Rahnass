@@ -18,6 +18,6 @@ urlpatterns = [
     path('ledger_cheque_details/<int:pk>',views.ledger_cheque_details,name='ledger_cheque_details'),
     path('add_cheque_details/<int:id>',views.add_cheque_details,name='add_cheque_details'),
     path('cheque_printing/<int:pk>',views.cheque_printing,name='cheque_printing'),
-    path('c_print/<int:pk>',views.c_print,name='c_print'), 
+    path('c_printt/<int:pk>',views.c_printt,name='c_printt'), 
     path('add_cheque_dimensions/<int:id>',views.add_cheque_dimensions,name='add_cheque_dimensions'), 
 ]

@@ -18,7 +18,8 @@
                 align-items: center;
                 justify-content: center;
                 border: none;
-                width:80%;
+                width:40%;
+                margin-left:250px;
                 position: absolute;
             }
             form{
@@ -40,16 +41,8 @@
                 background-color: rgba(255, 255, 255, 0.4);
                
             }
-            select{
-                padding: 10px 20px;
-                width: 83%;
-                border: none;
-                background-color: rgba(255, 255, 255, 0.4);
 
-            }
-            option{
-                color: white;
-            }
+
             .top input{
                 padding: 10px 20px;
                 width: 60%;
@@ -76,72 +69,23 @@
                 color: rgb(103, 175, 220);
                 background-color: white;
             }
-            .top{
-                display: flex; 
-            }
+            
             .top .left1{
-                width: 50%;
+                width: 100%;
                
                 border-bottom: 1px solid rgba(128, 128, 128, 0.6);
                 
                 padding: 30px;
     
             }
-            .top .right1{
-                width: 50%;
 
-                background-color: rgba(128, 128, 128, 0.09);
-                border-bottom: 1px solid rgba(128, 128, 128, 0.6);
-                padding: 30px;
-                
-            }
             .left1 div{
-                width: 50%;
+                width: 100%;
                 
                 padding: 3px 0;
             }
             
-            .bottom{
-                display: flex;
-            }
-            .bottom .left2{
-                width: 50%;
-                padding: 30px;
-                
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                
-            }
-            .bottom .right2{
-                width: 25%;
-                padding: 30px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                background-color: rgba(128, 128, 128, 0.09);
-               
-                
-                
-            }
-            .bottom .center{
-                width: 25%;
-                padding: 30px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                background-color: rgba(128, 128, 128, 0.09);
-                
-                
-            }
-            .left2 div,.right2 div,.center div{
-                width: 100%;
-                padding: 3px 0;
-            }
-            .bottom .left2,.bottom .right2,.bottom .center{
-                border-bottom: 1px solid rgba(128, 128, 128, 0.6);
-    
-            }
+   
     p{
         font-size: 13px;
     }
@@ -165,128 +109,61 @@
     .close:hover{
         color: rgb(0, 0, 0);
     }
-    .inv {
-    display: none;
-}
-        </style>
+    .bttn{
+        padding: 6px 30px;
+                border-radius: 10px;
+                border: 4px solid rgb(0, 0, 0,0);
+                color: white;
+                background-color: rgb(103, 175, 220);
+                margin-left:10px;
+    }
+    .bttn:hover{
+        border: 4px solid rgb(103, 175, 220);
+                color: rgb(103, 175, 220);
+                background-color: white;
+
+    }
+     </style>
         <div class="container">
             <div class="form1">
                 <a href="javascript:history.go(-1);" class="close">+</a>
-                <h6 style="background-color:rgb(103, 175, 220) ; color:rgb(0, 0, 0); text-align: center; padding: 9px 0; width:100%;">Cheque Dimensions ( {{ a.ledger_name }} )</h6>
+                <h6 style="background-color:rgb(103, 175, 220) ; color:rgb(0, 0, 0); text-align: center; padding: 9px 0; width:100%;">Cheque Details( {{ a.ledger_name }} )</h6>
                 
                 <form action="/add_cheque_dimensions/{{ a.id }}" method="post">
    {% csrf_token %}
-   <center><h6><u>Cheque Printing Configuration for :  {{ a.ledger_name }} </u></h6><br>
-                 <i>(All Dimensions in mm only)</i></center>
+   <center><h6><u>Cheque Printing details for :  {{ a.ledger_name }} </u></h6><br>
+                
    
     <div class="top">
     
         <div class="left1">
-            <u><h6>Cheque Dimensions</u></h6>
-        <div ><p>Width of Cheque :</p>
-        <input type="text" style="width:400px;" name="widthc"></div><br>
-        <div><p>Height of Cheque :</p>
-            <input type="text" style="width:400px;" name="heightc"></div>
-            <u><h6>Cross Cheque</u></h6>
-        <div ><p>Starting location from left edge :</p>
-        <input type="text" style="width:400px;" name="start_left"></div><br>
-        <div><p>Starting location from top edge :</p>
-            <input type="text" style="width:400px;" name="start_top"></div>
-            <u><h6>Cheque date</u></h6>
-            <div ><p>Distance of line from  left edge :</p>
-            <input type="text" style="width:400px;" name="dist_left"></div><br>
-            <div><p>Distance of line from  top edge :</p>
-                <input type="text" style="width:400px;" name="dist_top"></div>
-                <div><p>Style of date</p></div>
-                <select name="datec" id="bnn">
-                    <option value="dd-mmm-yyyy">dd-mmm-yyyy</option> 
-                    <option  value=">d d m m y y">d d m m y y</option>
-                    <option  value="d d m m y y y y">d d m m y y y y</option>
-                    <option  value=">d d m m _ _ y y">d d m m _ _ y y</option>
-                     
-                </select>
-                <div ><p>Separator used in date :</p>
-                    <input type="text" style="width:400px;" name="seperator_d"></div><br>
-                    <div><p>Separator width :</p>
-                        <input type="text" style="width:400px;" name="sep_width"></div>
-                        <div><p>Distance between characters :</p>
-                            <input type="text" style="width:400px;" name="sep_dist"></div>
+        <div ><p>Company Name :</p>
+        <input type="text" style="width:400px;" name="comp_name"></div><br>
+        <div><p>Payee Name :</p>
+            <input type="text" style="width:400px;" name="payee_name"></div>
+        <div ><p>Cheque Number :</p>
+        <input type="number" style="width:400px;" name="chq_num"></div><br>
+        <div><p>Date :</p>
+            <input type="date" style="width:400px;" name="chq_date"></div>
+            <div ><p>Amount in words :</p>
+            <input type="text" style="width:400px;" name="chq_amt"></div><br>
+            <div><p>Amount in numbers :</p>
+                <input type="number" style="width:400px;" name="chq_amt_num"></div>
+
+
                           
         
     </div>
-    <div class="right1">
-        <u><h6>Party's /Payee Name </u></h6>
-        <div ><p>Distance of line from  left edge :</p>
-            <input type="text" style="width:400px;" name="p_dist_left"></div><br>
-            <div><p>Distance of line from  top edge :</p>
-                <input type="text" style="width:400px;" name="p_dist_top"></div>
-                <div><p>width area :</p>
-                    <input type="text" style="width:400px;" name="p_width_area"></div>
-        <u><h6>Amount in words</u></h6>
-        <div ><p>(A)Distance of 2nd line from top edge :</p>
-        <input type="text" style="width:400px;" name="a_dist_2"></div><br>
-        <div><p>(B)Height (gap) between 2nd and 1st line :</p>
-            <input type="text" style="width:400px;" name="a_height_2"></div>
-        <div ><p>Distance of 1st line from top edge(A-B) :</p>
-        <input type="text" style="width:400px;" name="a_dist_3"></div><br>
-        <div><p>Starting location of 1st line from left edge :</p>
-            <input type="text" style="width:400px;" name="a_start_left"></div>
-            <div ><p>starting Location of 2nd line from left edge :</p>
-            <input type="text" style="width:400px;" name="a_start_2"></div><br>
-            <div><p>width area :</p>
-                <input type="text" style="width:400px;" name="a_width"></div>
-                <div><p>Print currency symbol</p></div>
-                <select name="a_currency" id="bnn">
-                    <option value="">No</option> 
-                    <option  value="">yes</option>
-                     
-                </select>
-
-    </div>
+  
     
 </div>
-<div class="bottom">
-    <div class="right2">
- 
-    </div>
-    <div class="left2">
-        <u><h6>Company Signatory Details</u></h6>
-        <div ><p>Company name on cheque :</p>
-            <input type="text" style="width:400px;" name="com_name"></div><br>
-            <div><p>Print Company name on cheque :</p>
-                <select name="c_name "  id="bnn">
-                    <option value="">No</option> 
-                    <option  value="">yes</option>
-                     
-                </select></div>
-                <div><p>salutaion of first signatory(if 2 signatories) :</p>
-                    <input type="text" style="width:400px;" name="1_sign"></div>
-        <div ><p>Salutation of 2nd or single signatory :</p>
-        <input type="text" style="width:400px;" name="2_sign"></div><br>
 
-        <div ><p>Distance from top edge :</p>
-        <input type="text" style="width:400px;" name="s_dist_topp"></div><br>
-        <div><p>Starting location from left edge :</p>
-            <input type="text" style="width:400px;" name="s_dist_leftt"></div>
-            <div ><p>width of signature area :</p>
-            <input type="text" style="width:400px;" name="sign_width"></div><br>
-            <div><p>height of signature area :</p>
-                <input type="text" style="width:400px;" name="sign_height"></div>
-                <br>
-                
-               
-
-    </div>
-    
-    <div class="center">
-      
-</div>
-</div>
-<div class="enter"><button>SUBMIT</button></div>        
+<div class="enter"><button>SUBMIT</button>     
      
+<a href="/c_printt/{{ a.id }}" class="bttn" class="btn btn-info"style="text-transform:uppercase; margin-right:20px;">Preview</a>
+</div>     </form>
 
-    </form>
-
+</center>
 
 </div>
 </div>

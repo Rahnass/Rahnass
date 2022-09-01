@@ -121,11 +121,7 @@ def alter_ledger(request,pk):
     return render(request,'ledger_alter.html')
 
 
-def ledger_bank_details(request,pk):
-    bnk=Ledger.objects.get(id=pk)
-    bnn=lbank.objects.filter(ledger_id=bnk.id)
-    context = {'a':bnk,'bnn':bnn}
-    return render(request,'l_bank_details.html',context)
+
 
 def add_bank_details(request,pk):
     if request.method == 'POST':
@@ -139,6 +135,7 @@ def add_bank_details(request,pk):
         lbnk = lbank(ledger_id_id=bb.id,transaction_type=abtype,cross_using=abcross,acno=abacno,ifscode=abifsc,bankname=abbname)
         lbnk.save()
         context = {'bb':bb}
+        messages.success(request,'added successfully')
         return render(request, 'l_bank_details.html',context)   
     return render(request, 'ledgers.html')         
 
@@ -167,76 +164,37 @@ def cheque_printing(request,pk):
 
 def add_cheque_dimensions(request,id):
     if request.method == 'POST':
+        if Print_Cheque.objects.filter(ledger_id=id).exists():
+            messages.info(request,"data already exists!!")
+            return render(request,'cheque_printing.html')
         cpp = Ledger.objects.get(id=id)
-        cwidth = request.POST.get("widthc",False)
-        cheight = request.POST.get("heightc",False)
+        cname = request.POST.get("comp_name",False)
+        pname = request.POST.get("payee_name",False)
 
-        ccsl = request.POST.get("start_left",False)
-        ccst = request.POST.get("start_top",False)
+        cnumber = request.POST.get("chq_num",False)
+        cdate = request.POST.get("chq_date",False)
 
-        cddl = request.POST.get("dist_left",False)
-        cddt = request.POST.get("dist_top",False)
-        cdstyl = request.POST.get("datec",False)
-        cdsep = request.POST.get("seperator_d",False)
-        cdsepwidth = request.POST.get("sep_width",False)
-        cdsepdist = request.POST.get("sep_dist",False)
+        amt_words = request.POST.get("chq_amt",False)
+        amt_numbers = request.POST.get("chq_amt_num",False)
 
-        ppdl = request.POST.get("p_dist_left",False)
-        ppdt = request.POST.get("p_dist_top",False)
-        ppwidth = request.POST.get("p_width_area",False)
-
-        amtdt = request.POST.get("a_dist_2",False)
-        amthg = request.POST.get("a_height_2")
-        amtdtt = request.POST.get("a_dist_3")
-        amtstl = request.POST.get("a_start_left")
-        amtstll = request.POST.get("a_start_2")
-        amtwidth = request.POST.get("a_width")
-        amtcur = request.POST.get("a_currency")
-
-        cmpname = request.POST.get("com_name",False)
-        pcmpname = request.POST.get("c_name",False)
-        signf = request.POST.get("1_sign",False)
-        signs = request.POST.get("2_sign",False)
-        signdt = request.POST.get("s_dist_topp",False)
-        signsl = request.POST.get("s_dist_leftt",False)
-        signwidth = request.POST.get("sign_width",False)
-        signheight = request.POST.get("sign_height",False)
-
-
-        prchq = Print_Cheque(ledger_id=cpp,
-                               cheque_width=cwidth,
-                               cheque_height=cheight,
-                               cc_start_left=ccsl,
-                               cc_start_top=ccst,
-                               cdate_dist_left=cddl,
-                               cdate_dist_top=cddt,
-                               date_style=cdstyl,
-                               date_seprator=cdsep,
-                               date_sep_width=cdsepwidth,
-                               date_dist=cdsepdist,
-                               party_dist_left=ppdl,
-                               party_dist_top=ppdt,
-                               party_width=ppwidth,
-                               amount_dist_top=amtdt,
-                               amount_height_gap=amthg,
-                               amount_dist2_top=amtdtt,
-                               amount_start1_left=amtstl,
-                               amount_start2_left=amtstll,
-                               amount_width=amtwidth,
-                               amount_currency=amtcur,
-                               company_name=cmpname,
-                               print_cname=pcmpname,
-                               sign_first=signf,
-                               sign_second=signs,
-                               sign_dist_top=signdt,
-                               sign_start_left=signsl,
-                               sign_width=signwidth,
-                               sign_height=signheight)
+        prchq = Print_Cheque(ledger_id_id=cpp.id,
+                               company_name=cname,
+                               payee_name=pname,
+                               cheque_number=cnumber,
+                               cheque_date=cdate,
+                               amt_words=amt_words,
+                               amt_number=amt_numbers)
         prchq.save()
-        return render(request,'c_print.html')
-    return render('cheque_printing.html')        
+        return redirect('c_printt',pk=id)
+    return render('ledgers.html')        
 
-def c_print(request,pk):
-    bnk=Print_Cheque.objects.get(id=pk)
-    context = {'a':bnk}
-    return render(request,'c_print.html',context)
+def c_printt(request,pk):
+    bnkk=Print_Cheque.objects.get(ledger_id_id=pk)
+    context = {'bb':bnkk}
+    return render(request, 'c_print.html',context)
+
+def ledger_bank_details(request,pk):
+    bnk=Ledger.objects.get(id=pk)
+    bnn=lbank.objects.filter(ledger_id=bnk.id)
+    context = {'a':bnk,'bnn':bnn}
+    return render(request,'l_bank_details.html',context)    

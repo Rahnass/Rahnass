@@ -4,207 +4,85 @@
 
 
     <style>
-        *{
-            padding: 0;
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            box-sizing: border-box;
-        }
-      
-        .form1{
-            background-color:rgba(0,0,0,.4);
-            box-shadow: 2px 2px 2px rgba(128, 128, 128, 0.662);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            width:80%;
-            position: absolute;
-        }
-        form{
-        
-            width: 100%;
-            /* display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center; */
-            height:auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        input,textarea{
-           padding: 10px 20px;
-            width: 100%;
-            border: none;
-            height: 30px;
-            background-color: rgba(255, 255, 255, 0.4);
-           
-        }
-        select{
-            padding: 10px 20px;
-            width: 83%;
-            border: none;
-            background-color: rgba(255, 255, 255, 0.4);
-
-        }
-        option{
-            color: white;
-        }
-        .top input{
-            padding: 10px 20px;
-            width: 60%;
-            border: none;
-            height: 30px;
-            background-color: rgba(255, 255, 255, 0.4);
-
-        }
-       
-
-        form div{
-            width: 100%;
-        }
-        button{
-            padding: 6px 30px;
-            border-radius: 10px;
-            border: 4px solid rgb(0, 0, 0,0);
-            color: white;
-            background-color: rgb(103, 175, 220);
-        }
-        button:hover{
-            
-            border: 4px solid rgb(103, 175, 220);
-            color: rgb(103, 175, 220);
-            background-color: white;
-        }
-        .top{
-            display: flex; 
-        }
-        .top .left1{
-            width: 50%;
-           
-            border-bottom: 1px solid rgba(128, 128, 128, 0.6);
-            
-            padding: 30px;
-
-        }
-        .top .right1{
-            width: 50%;
-
-            background-color: rgba(128, 128, 128, 0.09);
-            border-bottom: 1px solid rgba(128, 128, 128, 0.6);
-            padding: 30px;
-            
-        }
-        .left1 div{
-            width: 50%;
-            
-            padding: 3px 0;
-        }
-        
-        .bottom{
-            display: flex;
-        }
-        .bottom .left2{
-            width: 50%;
-            padding: 30px;
-            
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            
-        }
-        .bottom .right2{
-            width: 25%;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: rgba(128, 128, 128, 0.09);
-           
-            
-            
-        }
-        .bottom .center{
-            width: 25%;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: rgba(128, 128, 128, 0.09);
-            
-            
-        }
-        .left2 div,.right2 div,.center div{
-            width: 100%;
-            padding: 3px 0;
-        }
-        .bottom .left2,.bottom .right2,.bottom .center{
-            border-bottom: 1px solid rgba(128, 128, 128, 0.6);
-
-        }
-p{
-    font-size: 13px;
-}
-.enter{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 0;
-}
-.close {
-    position: absolute;
-    top: 3px;
-    right: 8px;
-    font-size: 25px;
-    color: rgb(255, 255, 255);
-    transform: rotate(45deg);
-    cursor: pointer;
-    text-decoration: none;
+.cheque{
+    background-color:white;
+    width:800px;
+    height:350px;
+    margin-left:150px;
+    border:2px black solid;
     
 }
-.close:hover{
-    color: rgb(0, 0, 0);
+.chqq{
+    background-color:rgb(99,194,226,.4);
+    
+    width:100%;
+    height:70%;
+   /* margin-top:10px; */
+    
+
+
 }
-.inv {
-display: none;
+.content{
+    padding:20px;
+    color:black;
+    font:bold;
+}
+
+button{
+    margin-top:20px;
+    padding: 6px 30px;
+    border-radius: 10px;
+    border: 4px solid rgb(0, 0, 0,0);
+    color: white;
+    background-color: rgb(103, 175, 220);
+}
+button:hover{
+    
+    border: 4px solid rgb(103, 175, 220);
+    color: rgb(103, 175, 220);
+    background-color: white;
 }
     </style>
     <div class="container">
-        <div class="form1">
-            <a href="javascript:history.go(-1);" class="close">+</a>
-            <h6 style="background-color:rgb(103, 175, 220) ; color:rgb(0, 0, 0); text-align: center; padding: 9px 0; width:100%;">Print</h6>
-            
-            <form action="/add_cheque_dimensions/{{ a.id }}" method="post">
-{% csrf_token %}
-
-<center>
-<div><p>Title : </p></div>
-<input type="text" style="width:500px;" value="Sample Cheque Printing" readonly>
-<div><p>Printer : </p></div>
-<input type="text" style="width:500px;" value="Microsoft Print to PDF" readonly>
-<div><p>Paper size : </p></div>
-<input type="text" style="width:500px;" value="Letter(8.50''x10.98'')or(216mmx279mm)" readonly>
-<div><p>Print area : </p></div>
-<input type="text" style="width:500px;" value="(8.50''x10.98'')or(216mmx279mm)" readonly>
-<div><p>Number of copies : </p></div>
-<input type="text" style="width:500px;" value="1" readonly>
-
-</center>
 
 
-<div class="enter">
-   <a href="" class="btn btn-info" style="text-transform:uppercase; margin-right:20px;">configure</a>
-   <a href="" class="btn btn-info"style="text-transform:uppercase; margin-right:20px;">Preview</a>
-   <a href=""class="btn btn-info" style="text-transform:uppercase; margin-right:20px;">Print</a>
-</div>        
- 
+<div class="cheque" >
+    <form method="post" action="">
+        {% csrf_token %}
+
+<div style="display:flex;"><p style="color:black;font-size:20px;padding:10px;margin-left:60px;">{{ bb.company_name }}</p>
+    <input style="height:30px;width:200px;margin-left:330px;margin-top:10px;" type="date" value="{{ bb.cheque_date }}" readonly></div>
+
+    <div class="chqq">
+<div class="content">
+    <div style="display:flex;"><p style="color:black;font-size:16px;">Pay :</p>
+        <input style="height:30px;width:600px;margin-left:30px;" value="{{ bb.payee_name }}" type="text" readonly>
+    <p style="color:black;font-size:16px;margin-left:10px;">by order</p></div>
+    <div style="display:flex;"><p style="color:black;font-size:16px;">Rupees :</p>
+        <input style="height:30px;width:650px;margin-left:30px;" value="{{ bb.amt_words }}" type="text" readonly>
+    </div>
+    <div style="display:flex;">
+        <input style="height:30px;width:580px;margin-left:10px;"  type="text" readonly>
+        <input style="height:30px;width:30px;margin-left:10px;font-size:20px;" value="₹" type="text" readonly>
+        <input style="height:30px;width:100px;" value="{{ bb.amt_number }}" type="text" readonly>
+    </div>
+    <!--<div style="display:flex;margin-top:10px;">
+        <input style="height:30px;width:50px;margin-left:10px;" type="text" value="A/c No." readonly>
+        <input style="height:30px;width:250px;" type="text" readonly>
+    </div>-->
+    <div style="display:flex;margin-top:75px;margin-left:600px;">
+        <p>Please sign above</p>
+    </div>
+</div>
+    </div>
 
 </form>
-
+</div>        
+      
+     <center>   <div ><button class="enter" class="btn btn-info" onclick="window.print()" >PRINT</button></div></center>
 
 </div>
-</div>
+
 
 
 {% endblock %}    

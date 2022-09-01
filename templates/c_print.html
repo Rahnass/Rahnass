@@ -51,7 +51,7 @@ button:hover{
         {% csrf_token %}
 
 <div style="display:flex;"><p style="color:black;font-size:20px;padding:10px;margin-left:60px;">{{ bb.company_name }}</p>
-    <input style="height:30px;width:200px;margin-left:330px;margin-top:10px;" type="date" value="{{ bb.cheque_date }}" readonly></div>
+    <input style="height:30px;width:200px;margin-left:330px;margin-top:10px; text-align:center;" type="date" value="{{ bb.cheque_date }}" readonly></div>
 
     <div class="chqq">
 <div class="content">
@@ -59,12 +59,12 @@ button:hover{
         <input style="height:30px;width:600px;margin-left:30px;" value="{{ bb.payee_name }}" type="text" readonly>
     <p style="color:black;font-size:16px;margin-left:10px;">by order</p></div>
     <div style="display:flex;"><p style="color:black;font-size:16px;">Rupees :</p>
-        <input style="height:30px;width:650px;margin-left:30px;" value="{{ bb.amt_words }}" type="text" readonly>
+        <input style="height:30px;width:650px;margin-left:30px;" value="{{ bb.amt_words }} only" type="text" readonly>
     </div>
     <div style="display:flex;">
         <input style="height:30px;width:580px;margin-left:10px;"  type="text" readonly>
         <input style="height:30px;width:30px;margin-left:10px;font-size:20px;" value="₹" type="text" readonly>
-        <input style="height:30px;width:100px;" value="{{ bb.amt_number }}" type="text" readonly>
+        <input style="height:30px;width:100px;" value="{{ bb.amt_number }}/-" type="text" readonly>
     </div>
     <!--<div style="display:flex;margin-top:10px;">
         <input style="height:30px;width:50px;margin-left:10px;" type="text" value="A/c No." readonly>

@@ -14,11 +14,16 @@ def groups(request):
 
 def m_group(request,pk):
     grp=MainGroup.objects.get(id=pk)
-    return render(request, 'main_group.html',{'a':grp})   
+    und=Under.objects.all()
+    context={'a':grp,'und':und}
+    return render(request, 'main_group.html',context)
     
 def s_group(request,pk):
     grps=SubGroup.objects.get(id=pk)
-    return render(request, 'sub_group.html',{'a':grps})  
+    grp=SubGroup.objects.all()
+    grr=MainGroup.objects.all()
+    context={'a':grps,'grp':grp,'grr':grr}
+    return render(request, 'sub_group.html',context)  
 
 def ledgers(request):
     return render(request,'ledgers.html')      

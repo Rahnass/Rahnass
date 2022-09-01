@@ -90,9 +90,15 @@
                 <input type="text" value="{{ a.name }}" name="name" >
                 <div><p>(Alias)</p></div>
                 <input type="text" value="{{ a.alias }}" name="alias" >
-                <div><p>Under</p></div>
-                <input type="text" value="{{ a.under }}" name="under" readonly>
-                    </div> 
+                <div><div><p>Under</p></div>
+                <select name="group_under" id="target">
+                    <option value="">{{ a.under }}</option>
+                    {% for a in und %}
+                    <option value="{{ a.cat_name }}">{{ a.cat_name }}</option>
+                    {% endfor %}
+                    
+                      
+                </select>
     
                     <div><p>Nature Of Group</p></div>
                     <input type="text" value="{{ a.nature }}" name="nature" readonly>

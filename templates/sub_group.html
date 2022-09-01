@@ -90,8 +90,17 @@
                 <input type="text" value="{{ a.name }}" name="name" >
                 <div><p>(Alias)</p></div>
                 <input type="text" value="{{ a.alias }}" name="alias" >
-                <div><p>Under</p></div>
-                <input type="text" value="{{ a.maingroup.name }}" name="under" readonly>
+                <div><div><p>Under</p></div>
+                <select name="group_under" id="target">
+                    <option value="">{{ a.maingroup }}</option>
+                    {% for a in grp %}
+                    <option value="{{ a.name }}">{{ a.name }}</option>
+                    {% endfor %}
+                    {% for a in grr %}
+                    <option value="{{ a.name }}">{{ a.name }}</option>
+                    {% endfor %}
+                      
+                </select>
                     </div> 
     
                 
